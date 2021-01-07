@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 require('dotenv').config();
+const path = require('path');
 
 // [Express]
 const express = require('express');
@@ -20,6 +21,13 @@ app.get('/', (req, res) => res.json({welcome: 'Bienvenidos a Equinoccio Technolo
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/plazas', require('./routes/plazas.routes'));
+
+// Lo ultimo
+// Nota: Esto es necesario para que en produccion al recargar no se pierda la ruta
+// - Siempre que tenga que buscar una ruta nueva -> tiene que pasar por el index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+})
 
 // [Ejecucion de servidor]
 app.listen(api_port, () => {
