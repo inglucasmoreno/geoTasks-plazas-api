@@ -73,7 +73,6 @@ const actualizarPlaza = async (req, res) => {
     }
 }
 
-
 module.exports = {
     getPlaza,
     listarPlazas,

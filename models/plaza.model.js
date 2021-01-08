@@ -1,11 +1,22 @@
 const {Schema, model} = require('mongoose');
 
+// const tareas = Schema({
+//    descripcion: {
+//        type: String,
+//        trim: true
+//    }
+// }, { timestamps: true });
+
 const tareas = Schema({
-   descripcion: {
-       type: String,
-       trim: true
-   }
-}, { timestamps: true });
+    descripcion: {
+        type: String,
+        trim: true
+    },
+    creacion: {
+        type: Date,
+        default: Date.now
+    }
+ });
 
 const plazaSchema = Schema({
     descripcion: {
