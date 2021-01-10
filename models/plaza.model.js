@@ -1,23 +1,5 @@
 const {Schema, model} = require('mongoose');
 
-// const tareas = Schema({
-//    descripcion: {
-//        type: String,
-//        trim: true
-//    }
-// }, { timestamps: true });
-
-const tareas = Schema({
-    descripcion: {
-        type: String,
-        trim: true
-    },
-    creacion: {
-        type: Date,
-        default: Date.now
-    }
- });
-
 const plazaSchema = Schema({
     descripcion: {
         type: String,
@@ -34,12 +16,15 @@ const plazaSchema = Schema({
         required: "La longitud es obligatoria",
         trim: true
     },
-    tareas: [tareas],
     activo:{
         type: Boolean,
-        required: true,
+        // required: true,
         default: true
-    }
+    },
+    fecha_ultima_visita: {
+        type: Date,
+        default: Date.now
+    },
 },{ timestamps: true });
 
 

@@ -35,7 +35,7 @@ const listarPlazas = async (req, res) => {
             Plaza.find(busqueda)
                    .skip(desde)
                    .limit(limit)
-                   .sort({descripcion: 1}),
+                   .sort({fecha_ultima_visita: 1}),
             Plaza.find(busqueda).countDocuments()
         ]);
         

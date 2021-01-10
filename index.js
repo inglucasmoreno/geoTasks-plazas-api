@@ -21,6 +21,7 @@ app.get('/', (req, res) => res.json({welcome: 'Bienvenidos a Equinoccio Technolo
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/plazas', require('./routes/plazas.routes'));
+app.use('/api/tareas', require('./routes/tareas.routes'));
 
 // Lo ultimo
 // Nota: Esto es necesario para que en produccion al recargar no se pierda la ruta
