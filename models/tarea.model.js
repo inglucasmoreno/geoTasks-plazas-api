@@ -18,7 +18,7 @@ const tareaSchema = Schema({
         type: Date,
         required: "La fecha limite es obligatoria"
     },
-    fecha_realizacion: {
+    fecha_completada: {
         type: Date
     },
     activo: {
