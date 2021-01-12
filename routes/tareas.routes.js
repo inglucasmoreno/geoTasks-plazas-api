@@ -7,6 +7,7 @@ const { validarJWT } = require('../middleware/validar-jwt');
 const {
     getTarea,
     listarTareas,
+    tareasVencidas,
     crearTarea,
     actualizarTarea 
     } = require('../controllers/tareas.controllers');
@@ -14,6 +15,7 @@ const {
 const router = Router();
 
 router.get('/:id', validarJWT, getTarea);
+router.get('/listar/vencidas', validarJWT, tareasVencidas);
 router.get('/', validarJWT, listarTareas);
 router.post('/', validarJWT, crearTarea);
 router.put('/:id', validarJWT, actualizarTarea);

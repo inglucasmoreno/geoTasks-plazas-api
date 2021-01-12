@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const moment = require('moment');
 const {error, success} = require('../helpers/response');
 const Tarea = require('../models/tarea.model');
 
@@ -25,6 +26,40 @@ const listarTareas = async (req, res) => {
             Tarea.find(busqueda).countDocuments()
         ])
         success(res, { tareas, total });
+    }catch(err){
+        console.log(chalk.red(err));
+        error(res, 500);
+    }
+}
+
+// Listar tareas por vencer/vencidas
+const tareasVencidas = async (req, res) => {
+    
+    const hoy = moment().format('YYYY-MM-DD');
+    const manana = moment().add(1, 'days').format('YYYY-MM-DD');
+    let condicion = {};
+
+    const condicionTareas = { fecha_limite: { $lte: new Date(`${manana}T00:00:00.000Z`)} }
+    const condicionPorVencer = { fecha_limite:{ $gte: new Date(`${hoy}T00:00:00.000Z`), $lt: new Date(`${manana}T00:00:00.000Z`) } }
+    const condicionVencidas = { fecha_limite: { $lt: new Date(`${hoy}T00:00:00.000Z`)} }
+    
+    try{
+        const [tareas, vencidas, porVencer, totalTareas, totalPorVencer, totalVencidas] = await Promise.all([
+            Tarea.find({activo: true}).where(condicionTareas).populate('plaza', 'descripcion').sort({plaza: -1}),        
+            Tarea.find({activo: true}).where(condicionVencidas).populate('plaza', 'descripcion').sort({plaza: -1}),         
+            Tarea.find({activo: true}).where(condicionPorVencer).populate('plaza', 'descripcion').sort({plaza: -1}), 
+            Tarea.find({activo: true}).where(condicionTareas).countDocuments(),
+            Tarea.find({activo: true}).where(condicionPorVencer).countDocuments(),
+            Tarea.find({activo: true}).where(condicionVencidas).countDocuments(),
+        ])  
+        success(res, { 
+            tareas, 
+            vencidas,
+            porVencer,
+            totalTareas,
+            totalPorVencer,
+            totalVencidas
+        });                          
     }catch(err){
         console.log(chalk.red(err));
         error(res, 500);
@@ -60,6 +95,7 @@ const actualizarTarea = async (req, res) => {
 module.exports = {
     getTarea,
     listarTareas,
+    tareasVencidas,
     actualizarTarea,
     crearTarea
 }
