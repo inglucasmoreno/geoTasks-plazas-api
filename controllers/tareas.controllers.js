@@ -16,6 +16,34 @@ const getTarea = async (req, res) => {
     }
 }
 
+// Listar tareas por ID de plaza
+const tareasPlaza = async (req, res) => {
+    try{
+
+        // Objeto de paginacion
+        let paginador = { 
+            desde: Number(req.query.desde) || 0, 
+            hasta: Number(req.query.hasta) || 0,
+        };
+
+        const busqueda = { plaza: req.params.id };
+        if(req.query.activo) busqueda.activo = req.query.activo;
+
+        const [tareas, total] = await Promise.all([
+            Tarea.find(busqueda)
+                 .skip(paginador.desde)
+                 .limit(paginador.hasta)
+                 .sort({fecha_completada: -1}),
+            Tarea.find(busqueda).countDocuments()
+        ]);
+
+        success(res, { tareas, total });
+    }catch(err){
+        console.log(chalk.red(err));
+        error(res, 500);
+    }
+}
+
 // Listar tareas por condicion
 const listarTareas = async (req, res) => {
     try{ 
@@ -179,5 +207,6 @@ module.exports = {
     listarTareas,
     tareasVencidas,
     actualizarTarea,
-    crearTarea
+    crearTarea,
+    tareasPlaza
 }
