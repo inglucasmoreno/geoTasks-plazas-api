@@ -5,7 +5,7 @@ const path = require('path');
 // [Express]
 const express = require('express');
 const app = express();
-const api_port = process.env.API_PORT || 3001;
+const api_port = process.env.PORT || 3001;
 
 // [Base de datos] - MongoDB
 const dbConnection = require('./database/config');
