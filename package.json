@@ -1,11 +1,12 @@
 {
   "name": "geo_plaza",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de tareas geolocalizadas para plazas",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "start:init": "node database/init.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
