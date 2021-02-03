@@ -1,7 +1,6 @@
 const chalk = require('chalk');
 const moment = require('moment');
 const {error, success} = require('../helpers/response');
-const { where } = require('../models/tarea.model');
 const Tarea = require('../models/tarea.model');
 
 // Tarea por ID

@@ -63,7 +63,6 @@ const nuevoUsuario = async (req, res) => {
             
         // Verificacion: Email repetido?
         const existeEmail = await Usuario.findOne({ email });
-        console.log(existeEmail);
         if(existeEmail) return error(res, 400, 'Ese correo ya esta registrado');
 
         // Se crea la instancia de usuario
