@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, SchemaTypes} = require('mongoose');
 
 const plazaSchema = Schema({
     descripcion: {
@@ -15,6 +15,11 @@ const plazaSchema = Schema({
         type: String,
         required: "La longitud es obligatoria",
         trim: true
+    },
+    tipo:{
+        required: "La plaza debe tener un tipo",
+        type: Schema.Types.ObjectId,
+        ref: 'tipo'
     },
     activo:{
         type: Boolean,
