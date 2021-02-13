@@ -36,7 +36,7 @@ const listarUsuarios = async (req, res) => {
         }
 
         const [usuarios, total] = await Promise.all([
-            Usuario.find(busqueda, 'dni apellido nombre role email activo')
+            Usuario.find(busqueda, 'dni apellido nombre role email activo')    
                    .skip(desde)
                    .limit(limit)
                    .sort({apellido: 1}),

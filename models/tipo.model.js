@@ -14,6 +14,6 @@ const tipoSchema = Schema({
         default: true
     }
 
-});
+}, {timestamps: true});
 
 module.exports = model('tipo', tipoSchema);

@@ -6,7 +6,7 @@ const Plaza = require('../models/plaza.model');
 const getPlaza = async (req, res) => {
     try{
         const id = req.params.id;
-        const plaza = await Plaza.findById(id);
+        const plaza = await Plaza.findById(id).populate('tipo','descripcion');
         if(!plaza) return error(res, 400, 'La plaza no existe');
         success(res, plaza);
     }catch(err){
@@ -33,9 +33,10 @@ const listarPlazas = async (req, res) => {
 
         const [plazas, total] = await Promise.all([
             Plaza.find(busqueda)
-                   .skip(desde)
-                   .limit(limit)
-                   .sort({fecha_ultima_visita: 1}),
+                    .populate('tipo', 'descripcion')
+                    .skip(desde)
+                    .limit(limit)
+                    .sort({fecha_ultima_visita: 1}),
             Plaza.find(busqueda).countDocuments()
         ]);
         
